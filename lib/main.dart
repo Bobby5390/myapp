@@ -5,33 +5,71 @@ void main() {
   runApp(const Lab06AdvancedUI());
 }
 
-class Lab06AdvancedUI extends StatelessWidget {
+class Lab06AdvancedUI extends StatefulWidget {
   const Lab06AdvancedUI({super.key});
 
-  @override
+  State<Lab06AdvancedUI> createState() => _Lab06AdvancedUIState();
+}
+
+class _Lab06AdvancedUIState extends State<Lab06AdvancedUI> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Lab O6 Advanced UI",
+      title: "Photos",
       home: Scaffold(
-        appBar: AppBar(title: Text("Lab O6 Advanced UI")),
-        body: Center(
-          child: Column(
+        appBar: AppBar(title: Text("Photos")),
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
             children: [
-              CachedNetworkImage(
-                imageUrl:
-                    "https://wallpapers.com/images/hd/tom-and-jerry-funny-h3bjansjg6qyzhxb.jpg",
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) => Image.network(
-                    'https://blogassets.airtel.in/wp-content/uploads/2024/10/tom_and_jerry-whats_that_smell.jpg'),
+
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text("Home"),
+                onTap: () {},
               ),
-              Expanded(
-                child: Image(
-                  image: NetworkImage(
-                      'https://miro.medium.com/v2/resize:fit:1400/1*pzbYin_gqDNVjOSLQs06NQ.jpeg'),
-                ),
-              )
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
+                onTap: () {},
+              ),
             ],
           ),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600",
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.error, size: 50, color: const Color.fromARGB(255, 247, 243, 242)),
+              ),
+            ),
+            Expanded(
+              child: Image.network(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3J5dsBx3vMuAqRwoBmLbIq1O1L73Yls6QSxyTvjZo1ZeIUWIx9SueXOPAXXLy8kHzxXc&usqp=CAU',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.photo), label: "Photos"),
+            BottomNavigationBarItem(icon: Icon(Icons.collections), label: "Collections"),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
+          ],
         ),
       ),
     );
