@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(title: Text("lab 06")),
         body: Center( 
           child: Image.network(
-            'https://diablodesign.eu/images/DiabloDesign/blog/online-photo-editor/v2-polarr.webp', 
+            'https://images4.alphacoders.com/124/1242710.jpg', 
             loadingBuilder: (context, child, loadingProgress) {
               if (loadingProgress == null) {
                 return child;
