@@ -1,76 +1,61 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// main.dart
 import 'package:flutter/material.dart';
+import 'package:myapp/body.dart';
 
 void main() {
   runApp(const Lab06AdvancedUI());
 }
 
-class Lab06AdvancedUI extends StatefulWidget {
+/*
+  NAVIGATION
+  1. Drawer
+  2. Bottom Nav
+  3. Tab
+*/
+
+class Lab06AdvancedUI extends StatelessWidget {
   const Lab06AdvancedUI({super.key});
 
-  State<Lab06AdvancedUI> createState() => _Lab06AdvancedUIState();
-}
-
-class _Lab06AdvancedUIState extends State<Lab06AdvancedUI> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Photos",
+      title: 'Lab06 Advanced UI',
       home: Scaffold(
-        appBar: AppBar(title: Text("Photos")),
         drawer: Drawer(
+          backgroundColor: const Color.fromARGB(255, 242, 245, 247),
           child: ListView(
-            padding: EdgeInsets.zero,
             children: [
-
+              Container(
+                height: 80,
+                child: DrawerHeader(
+                  child: Row(
+                    children: [
+                      Icon(Icons.people_alt_rounded),
+                      Text("Contacts"),
+                    ],
+                  ),
+                ),
+              ),
               ListTile(
-                leading: Icon(Icons.home),
-                title: Text("Home"),
+                leading: Icon(Icons.mobile_screen_share),
+                title: Text("Device"),
+                trailing: Text("Anything"),
                 onTap: () {},
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Settings"),
+                leading: Icon(Icons.mobile_screen_share),
+                title: Text("Contacts"),
+                trailing: Text("Anything"),
                 onTap: () {},
               ),
             ],
           ),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: CachedNetworkImage(
-                imageUrl:
-                    "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600",
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) =>
-                    Icon(Icons.error, size: 50, color: const Color.fromARGB(255, 247, 243, 242)),
-              ),
-            ),
-            Expanded(
-              child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3J5dsBx3vMuAqRwoBmLbIq1O1L73Yls6QSxyTvjZo1ZeIUWIx9SueXOPAXXLy8kHzxXc&usqp=CAU',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          title: const Text('Lab06 Advanced UI'),
+          backgroundColor: Colors.amber,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.photo), label: "Photos"),
-            BottomNavigationBarItem(icon: Icon(Icons.collections), label: "Collections"),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-          ],
-        ),
+        body: AppBody(),
       ),
     );
   }
